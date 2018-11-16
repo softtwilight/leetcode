@@ -1,0 +1,2 @@
+# leetcode
+algorithm by Java
