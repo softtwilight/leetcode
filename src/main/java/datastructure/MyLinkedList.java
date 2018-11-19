@@ -1,5 +1,7 @@
 package datastructure;
 
+import java.util.LinkedList;
+
 /**
  * @author softtwilight
  * @vesion create on 2018/11/16
@@ -84,7 +86,7 @@ public class MyLinkedList {
     }
 
     private Node findNode(int index) {
-        Node node = head;;
+        Node node = head;
         if (index <= size / 2){
             for (int i = 0; i <= index; i++){
                 node = node.next;
