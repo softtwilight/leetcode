@@ -61,4 +61,40 @@ public class _57_InsertInterval {
 
         return result;
     }
+    
+    
+    
+    /**
+     * code from leetcode. really clever!
+     */
+    public int[][] insert2(int[][] intervals, int[] newInterval) {
+
+        ArrayList<int[]> aList = new ArrayList<int[]>();
+        for (int[] interval : intervals) {
+            if (interval[1] < newInterval[0]) {
+                aList.add(interval);
+
+            } else if (newInterval[1] < interval[0]) {
+                aList.add(newInterval);
+
+                // this is the most brilliant code.
+                // 用画图来表示的时候，很容易将newInterval 理解成一个不可变的interval，一个区间
+                // 将一个区间插入另外一个区间。
+                // 但是当这个区间是一个活动的区间的时候，一些就都不一样了。
+                // newInterval 变成一个当前最大的区间。
+                // merge overlap的过程就很简单了。
+                newInterval = interval;
+
+            } else {
+                newInterval[0] = Math.min(newInterval[0], interval[0]);
+                newInterval[1] = Math.max(newInterval[1], interval[1]);
+            }
+        }
+        aList.add(newInterval);
+        int[][] result = new int[aList.size()][2];
+        for (int j = 0; j < result.length; j++) {
+            result[j] = aList.get(j);
+        }
+        return result;
+    }
 }
