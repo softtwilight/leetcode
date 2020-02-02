@@ -10,9 +10,7 @@ import java.util.List;
  * @author softtwilight 2020/01/27
  *
  */
-public class _57_InsertInterval {
-
-
+public class _57_Insert_Interval {
     /**
      * the key is to find the insert point. N * 2 range array can have N * 2 + 2
      * insert points. the odd number in between the interval. the even number is
@@ -61,9 +59,9 @@ public class _57_InsertInterval {
 
         return result;
     }
-    
-    
-    
+
+
+
     /**
      * code from leetcode. really clever!
      */

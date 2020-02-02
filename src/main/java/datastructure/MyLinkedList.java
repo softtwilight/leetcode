@@ -12,6 +12,7 @@ public class MyLinkedList {
     private Node tail;
     private int size = 0;
 
+
     /** Initialize your data structure here. */
     public MyLinkedList() {
         head = new Node(0);

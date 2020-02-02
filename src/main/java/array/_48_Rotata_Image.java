@@ -1,5 +1,6 @@
 package array;
 
+
 /**
  *
  * You are given an n x n 2D matrix representing an image.
@@ -8,7 +9,7 @@ package array;
  * @author softtwilight 2020/01/22
  *
  */
-public class _48_RotateImage {
+public class _48_Rotata_Image {
 
     public void rotate(int[][] matrix) {
         int t = matrix.length - 1;
