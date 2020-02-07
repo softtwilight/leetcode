@@ -5,7 +5,6 @@ package array;
  * Design an algorithm to find the maximum profit. You may complete at most two transactions.
  *
  * Hard
- *
  * @author softtwilight 2020/01/31
  *
  */
@@ -36,7 +35,7 @@ public class _123_SellStock3 {
     }
 
     /**
-     * find the best sell change.
+     * find the best sell chance.
      * return {buyPoint, sellPoint, bestIncome} in array.
      */
     public int[] maxRange(int from, int to, int[] prices, boolean reverse) {
