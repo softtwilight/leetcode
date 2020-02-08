@@ -8,7 +8,7 @@ import java.util.Stack;
  *
  * @author softtwilight 2019/11/28
  */
-public class Dp_LongestParentheses {
+public class _LongestParentheses {
 
     public static int longestValidParentheses(String s) {
         if (s == null || s.length() == 0) {
