@@ -62,4 +62,31 @@ public class _55_Jump_Game {
         return false;
     }
 
+
+    enum Index {
+        GOOD, BAD, UNKNOWN
+    }
+
+    public boolean canJump2(int[] nums) {
+        Index[] memo = new Index[nums.length];
+        for (int i = 0; i < memo.length; i++) {
+            memo[i] = Index.UNKNOWN;
+        }
+        memo[memo.length - 1] = Index.GOOD;
+
+        for (int i = nums.length - 2; i >= 0; i--) {
+            int furthestJump = Math.min(i + nums[i], nums.length - 1);
+            // 正数数组，nums[i] >= 1, 所以可以jump的范围是 i+1 到 furthestJump, 如果能跳到的点是GOOD的点
+            // 那么i也是good点
+            for (int j = i + 1; j <= furthestJump; j++) {
+                if (memo[j] == Index.GOOD) {
+                    memo[i] = Index.GOOD;
+                    break;
+                }
+            }
+        }
+
+        return memo[0] == Index.GOOD;
+    }
+
 }
