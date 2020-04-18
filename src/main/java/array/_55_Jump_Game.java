@@ -89,4 +89,21 @@ public class _55_Jump_Game {
         return memo[0] == Index.GOOD;
     }
 
+    /**
+     * 我们可以观察到，如果i是一个GOOD的点，我们不需要之后i之后的点是否是好的，因为如果能到达i，
+     * 那么也能到达最后一点，所以我们只需要记录一个最近的GOOD点就好了。
+     *
+     * 只记录最近的点还有一个好处，如果要判断到最近的点的距离
+     */
+    public boolean canJump3(int[] nums) {
+
+        int lastPosition = nums.length - 1;
+        for (int i = nums.length - 2; i >= 0; i--) {
+            if (nums[i] + i >= nums.length) {
+                lastPosition = i;
+            }
+        }
+        return lastPosition == 0;
+    }
+
 }
