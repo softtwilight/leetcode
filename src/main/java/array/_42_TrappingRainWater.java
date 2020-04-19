@@ -74,4 +74,39 @@ public class _42_TrappingRainWater {
         }
         return result;
     }
+
+    /**
+     * 这个地方我们可以用双指针来解决上面第二次重复遍历的问题。
+     * 这里似乎有个小窍门，那就是需要二次遍历的时候，能可以尝试多加一个指针的方法来避免。
+     *
+     * 我们通过上面的分析知道，实际上在最高点的左边，是以leftMax来蓄水，最高点的右边是以rightMax来蓄水。
+     * 现在我们通过两个指针，分别从左和右往中间遍历。依次保存leftMax 和 rightMax。
+     * 我们判断leftMax和rightMax的大小，比如说leftMax < rightMax, 我们就知道leftMax一定不是最高点
+     * 所以用左边来蓄水是安全的，同时移动左边指针，因为left还没有达到最高点，所以应该右移。
+     * 同样的rightMax < leftMax, 用右边来蓄水是安全的。
+     * 相等的情况，用两边都可以。最终两个指针会定在最高点上。
+     *
+     * 当然这个优化是理论上的，实际运行的结果没有什么差别。
+     *
+     */
+    public int trap2(int[] height) {
+
+        int start = 0;
+        int end = height.length - 1;
+        int result = 0;
+        int leftMax = 0, rightMax = 0;
+        while (start < end) {
+            leftMax = Math.max(leftMax, height[start]);
+            rightMax = Math.max(rightMax, height[end]);
+            if (leftMax < rightMax) {
+                result += leftMax - height[start];
+                start++;
+            } else {
+                result += rightMax - height[end];
+                end--;
+            }
+        }
+        return result;
+
+    }
 }
