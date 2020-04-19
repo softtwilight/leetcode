@@ -34,6 +34,7 @@ public class _45_Jump_Game_2 {
 
     /**
      * 贪心解法
+     * 其实很像一个BFS解决最短路径问题
      */
     public int jump2(int[] nums) {
         int curEnd = 0, furestJump = 0, jumps = 0;
@@ -44,7 +45,6 @@ public class _45_Jump_Game_2 {
             furestJump = Math.max(furestJump, i + nums[i]); //找到在目前的区间内，能跳得最远的点。作为下一个区间。
             if (i == curEnd) {
                 curEnd = furestJump; // 新区间为最大区间
-                jumps++; // 区间结束，需要条约一次
             }
         }
         return jumps;
