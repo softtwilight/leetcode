@@ -18,11 +18,11 @@ package array;
  * Author:   softtwilight
  * Date:     2020/04/19 20:35
  */
-public class _42_TrappingRainWater {
+public class _42_Trapping_Rain_Water {
 
     public static void main(String[] args) {
         int[] input = {0,1,0,2,1,0,1,3,2,1,2,1};
-        _42_TrappingRainWater instance = new _42_TrappingRainWater();
+        _42_Trapping_Rain_Water instance = new _42_Trapping_Rain_Water();
         System.out.println(instance.trap(input));
     }
 
