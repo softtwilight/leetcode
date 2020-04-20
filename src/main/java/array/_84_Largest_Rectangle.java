@@ -86,6 +86,8 @@ public class _84_Largest_Rectangle {
      * ps，抛了一个空stack的异常，注意check栈是否是empty
      * （因为把相等的情况也出栈了，如果不出栈，那么在pop的时候添加一个 ！= 的判断条件也可以）
      *
+     * 每一个元素都被入栈，出栈，然后遍历了一次， 时间复杂度是2 * N， 空间复杂度最坏是N（递增的数组）
+     *
      *
      */
     public int largestRectangleArea_v4(int[] heights) {
