@@ -1,10 +1,8 @@
 package array;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * Given an array nums of n integers and an integer target, are there elements a, b, c,
@@ -96,22 +94,18 @@ public class _18_4sum {
         int max = nums[nums.length - 1];
         List<List<Integer>> list = new ArrayList<>();
         for (int i = 0; i < nums.length-3;i++) {
-
             //去重，除去初始值
             if (i > 0 && nums[i] == nums[i-1]) {
                 continue;
             }
-
             //max
             if (nums[i] + 3 * max < target) {
                 continue;
             }
-
             //min
             if( nums[i] * 4 > target ) {
                 break;
             }
-
             for (int j = i + 1; j < nums.length-2; j++) {
                 if (j > i+1 && nums[j] == nums[j-1]) {
                     continue;

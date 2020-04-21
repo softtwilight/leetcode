@@ -28,7 +28,6 @@ public class _34_Search_Range_In_SortedArr {
     public static void main(String[] args) {
         _34_Search_Range_In_SortedArr instance = new _34_Search_Range_In_SortedArr();
         int[] input1 = {5,7,7,8,8,10};
-        int[] input2 = {};
         System.out.println(Arrays.toString(instance.searchRange(input1, 8)));
         System.out.println(Arrays.toString(instance.searchRange(input1, 6)));
 
