@@ -53,7 +53,6 @@ public class _49_Group_Anagrams {
             String sortedS = new String(cs);
             map.computeIfAbsent(sortedS,  ss -> new ArrayList<>()).add(s);
         }
-        List<List<String>> result = new ArrayList<>(map.values());
-        return result;
+        return new ArrayList<>(map.values());
     }
 }
