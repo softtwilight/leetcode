@@ -76,6 +76,29 @@ public class _84_Largest_Rectangle {
     }
 
     /**
+     * 更简洁的stack 版本
+     */
+    public int largestRectangleArea_v5(int[] height) {
+        if(height == null || height.length == 0) return 0;
+        int len = height.length;
+        Stack<Integer> s = new Stack<Integer>();
+        int maxArea = 0;
+        for(int i = 0; i <= len; i++){
+            int h = (i == len ? 0 : height[i]);
+            if(s.isEmpty() || h >= height[s.peek()]){
+                s.push(i);
+            }else{
+                int tp = s.pop();
+                // 长方形的面积在于，找到两个index，1是左边第一个比tp下小的index，2是右边第一个比tp小的index
+                // width = （rightIndex - leftIndex + 1);
+                maxArea = Math.max(maxArea, height[tp] * (s.isEmpty() ? i : i - 1 - s.peek()));
+                i--;
+            }
+        }
+        return maxArea;
+    }
+
+    /**
      * 这个实现的思路大致是这样的，因为我们观察到，只有下降的时候，至少一个范围结束了。
      * 如果上升，这个范围就没结束，所以我们不再一边遍历，一边计算，而是放入stack。
      * 我们保证栈里的数都是小于等于当前height的。
@@ -112,9 +135,7 @@ public class _84_Largest_Rectangle {
             int[] head = stack.pop();
             result = Math.max(result, head[0] * (heights.length - head[1]));
         }
-
         return result;
-
     }
 
     public int largestRectangleArea_v2(int[] heights) {
