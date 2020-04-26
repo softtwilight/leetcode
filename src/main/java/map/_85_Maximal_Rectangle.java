@@ -1,5 +1,8 @@
 package map;
 
+import java.sql.SQLOutput;
+import java.util.Stack;
+
 /**
  *
  * Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle
@@ -43,8 +46,62 @@ public class _85_Maximal_Rectangle {
      *
      */
     public int maximalRectangle(char[][] matrix) {
-        if (matrix.length == 0) return 0;
-        return helper(matrix);
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
+        return helper2(matrix);
+    }
+
+
+
+    /**
+     * 这个解法是基于做过的_84在直方图中找最大的矩形。
+     * 我们读一行，然后0对应高度0， 1对应高度1， 计算最大矩形。
+     * 然后接着读下一行，如果为0， 那么高度重置为0， 如果为1， 那么高度在原来的基础上加一
+     * 然后每一行计算maxRectangle.  	7 ms  +	42.5 MB
+     *
+     */
+    public int helper2(char[][] matrix) {
+        int rn = matrix.length;
+        int coln = matrix[0].length;
+
+        int[] height = new int[coln];
+        for (int i = 0; i < coln; i++) {
+            if (matrix[0][i] == '0') {
+                height[i] = 0;
+            }  else height[i] = 1;
+        }
+        int result = largestInLine(height);
+        for (int i = 1; i < rn; i++) {
+            for (int j = 0; j < coln; j++) {
+                if (matrix[i][j] == '0') {
+                    height[j] = 0;
+                } else height[j] = height[j] + 1;
+            }
+            result = Math.max(result, largestInLine(height));
+        }
+        return result;
+    }
+
+    /**
+     * 参考_84_Largest_Rectangle, 计算height里最大的长方形。
+     */
+    public int largestInLine(int[] height) {
+        if(height == null || height.length == 0) return 0;
+        int len = height.length;
+        Stack<Integer> s = new Stack<Integer>();
+        int maxArea = 0;
+        for(int i = 0; i <= len; i++){
+            int h = (i == len ? 0 : height[i]);
+            if(s.isEmpty() || h >= height[s.peek()]){
+                s.push(i);
+            }else{
+                int tp = s.pop();
+                // 长方形的面积在于，找到两个index，1是左边第一个比tp下小的index，2是右边第一个比tp小的index
+                // width = （rightIndex - leftIndex + 1);
+                maxArea = Math.max(maxArea, height[tp] * (s.isEmpty() ? i : i - 1 - s.peek()));
+                i--;
+            }
+        }
+        return maxArea;
     }
 
     public int helper(char[][] matrix) {
@@ -70,6 +127,8 @@ public class _85_Maximal_Rectangle {
         }
         return result;
     }
+
+
 
     private int lookDown(char[][] matrix, int r, int loj, int hij) {
         int result = hij - loj + 1;
