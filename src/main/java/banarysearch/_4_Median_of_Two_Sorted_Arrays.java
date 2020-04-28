@@ -95,7 +95,9 @@ public class _4_Median_of_Two_Sorted_Arrays {
      *
      *  我最开始的范围选择是0 ～ A.length - 1, 这时候的变量代表的是数组下标，这样就需要考虑
      *  A 的最小值也不贡献rightMin 和 A的最大值也不贡献leftMax的情况，变得很复杂。
-     *  这时候换一个抽象也很重要，0 ～ A.length, 变量是各个数组元素之间的空隙。
+     *  换一个抽象也很重要，0 ～ A.length, 变量是各个数组元素之间的空隙。
+     *  这时候停在0意味着A全部在右边， 停在A.length 意味着A全在右边。一下子就清晰很多了。
+     *  因为0 ～ A.length 都是合法的，要让i 能到达边界条件，这时while条件是需要加上 = 号的。
      *
      */
     public static double findMedianSortedArrays(int[] A, int[] B) {
