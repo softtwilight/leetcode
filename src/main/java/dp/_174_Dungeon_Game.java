@@ -42,7 +42,7 @@ public class _174_Dungeon_Game {
      * 这个转换过程一定要是收敛的（递归有break点），一直收敛到答案显而易见为止。这个就保证了问题可解。
      * 然后还要保证子问题是重复的，这样可以利用cache将子问题答案记录下来，避免重复计算。
      *
-     * 对我来说递归的方法是思考更直观的，一般还要再优化的话需要反向来建立memo，用循环的方式，
+     * 对我来说用递归的方法思考更直观的，一般还要再优化的话需要反向来建立memo，用循环的方式，
      * 比如从右下角的公主点出发，然后慢慢回到右上角。这个过程少了递归方法调用的栈空间开支（如果没有尾递归优化）
      * 应该是可以节省一点内存空间的。
      *
@@ -68,7 +68,7 @@ public class _174_Dungeon_Game {
             return 0;
         }
         int m = dungeon.length, n = dungeon[0].length;
-        Integer[][] memo = new Integer[m][n];
+        int[][] memo = new int[m][n];
         if (dungeon[m - 1][n - 1] < 0) {
             memo[m - 1][n - 1] = -dungeon[m - 1][n - 1] + 1;
         }  else {
@@ -77,8 +77,8 @@ public class _174_Dungeon_Game {
         return helper(dungeon, memo, 0, 0);
     }
 
-    private int helper(int[][] dungeon, Integer[][] memo, int i, int j) {
-        if (memo[i][j] != null) {
+    private int helper(int[][] dungeon, int[][] memo, int i, int j) {
+        if (memo[i][j] != 0) {
             return memo[i][j];
         }
         int need;

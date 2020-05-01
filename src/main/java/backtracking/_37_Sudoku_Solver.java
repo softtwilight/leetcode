@@ -1,4 +1,4 @@
-package hashmap;
+package backtracking;
 
 import java.util.*;
 
@@ -64,6 +64,7 @@ public class _37_Sudoku_Solver {
      *
      *  所以在这个思路里，三种方法里，用二进制来判断的解法是最快的。但是并不明显。
      *  核心的思想是尽量从可选值更少的地方开始试错。
+     *
      *
      */
     public void solveSudoku(char[][] board) {
@@ -197,9 +198,6 @@ public class _37_Sudoku_Solver {
                 }
             }
         }
-        System.out.println(rMap);
-        System.out.println(cMap);
-        System.out.println(bMap);
         solveWithMap2(board);
     }
 
