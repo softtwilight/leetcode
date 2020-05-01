@@ -51,4 +51,61 @@ public class _209_Minimum_Size_Subarray_Sum {
         }
         return result == nums.length + 1 ? 0 : result;
     }
+
+
+    /**
+     * 题目还需要O(n log n)这样的复杂度。
+     *
+     * 实际上是从这道题的分类和复杂度里得到的提示。
+     * 二分查找关键是要有一个有序数组，而原数组是positive array，
+     * 那么我们可以通过叠加和来构建一个有序数组。然后通过寻找二分查找来找到
+     * 与i相对应的j， 其差值大于s。 然后我们min result；
+     *
+     */
+    public static int minSubArrayLen2(int s, int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int[] sums = new int[nums.length];
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            result += nums[i];
+            sums[i] = result;
+        }
+        result = nums.length + 1;
+        for (int i = 0; i < nums.length; i++) {
+            int j;
+            if (i == 0) {
+                j = firstBigger(sums, s, i);
+            } else {
+                j = firstBigger(sums, s + sums[i - 1], i);
+            }
+            if (j != nums.length) { // 能找到
+                result = Math.min(result, j - i + 1);
+            }
+        }
+        return result == nums.length + 1 ? 0 : result;
+    }
+
+    /**
+     * 在数组sums中， 找到lo坐标之后，找到大于等于target的值中最小的一个。
+     * lo <= hi 是因为我们需要让lo达到坐标最后一个点，然后判断是否符合target，
+     * 这时候lo会继续+1， （lo = hi = mid）然后lo的值会超过数组，表明找不到bigger的数。
+     *
+     * hi = mid - 1；是因为因为lo可能等于hi，那么mid 可能等于 hi， 这时候要让while循环所以
+     * 范围才可能退出。
+     * lo点就是我们需要找的点。
+     */
+    private static int firstBigger(int[] sums, int target, int lo) {
+        int hi = sums.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (sums[mid] < target) {
+                lo = mid + 1;
+            } else if (sums[mid] == target) {
+                return mid;
+            } else {
+                hi = mid - 1; //这步虽然满足了条件 >= target, 但是我们接着向左搜索找最小的。
+            }
+        }
+        return lo;
+    }
 }
