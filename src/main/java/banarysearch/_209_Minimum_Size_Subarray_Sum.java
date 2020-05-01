@@ -64,20 +64,15 @@ public class _209_Minimum_Size_Subarray_Sum {
      */
     public static int minSubArrayLen2(int s, int[] nums) {
         if (nums == null || nums.length == 0) return 0;
-        int[] sums = new int[nums.length];
+        int[] sums = new int[nums.length + 1];
         int result = 0;
-        for (int i = 0; i < nums.length; i++) {
-            result += nums[i];
+        for (int i = 1; i < sums.length; i++) {
+            result += nums[i - 1];
             sums[i] = result;
         }
         result = nums.length + 1;
         for (int i = 0; i < nums.length; i++) {
-            int j;
-            if (i == 0) {
-                j = firstBigger(sums, s, i);
-            } else {
-                j = firstBigger(sums, s + sums[i - 1], i);
-            }
+            int j = firstBigger(sums, s + sums[i - 1], i);
             if (j != nums.length) { // 能找到
                 result = Math.min(result, j - i + 1);
             }
