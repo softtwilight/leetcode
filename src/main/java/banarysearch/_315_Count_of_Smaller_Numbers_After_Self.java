@@ -1,5 +1,7 @@
 package banarysearch;
 
+import com.sun.security.auth.UnixNumericGroupPrincipal;
+
 import java.util.*;
 
 /**
@@ -20,9 +22,63 @@ import java.util.*;
  */
 public class _315_Count_of_Smaller_Numbers_After_Self {
 
+    public static void main(String[] args) {
+        int[] input = {5,2,6,1};
+        _315_Count_of_Smaller_Numbers_After_Self instance = new _315_Count_of_Smaller_Numbers_After_Self();
+        System.out.println(instance.countSmaller3(input));
+    }
 
+    /**
+     * 我们试试用二分查找的方法来。
+     * 最开始的想法是这样的，没遍历一个数，就对之后的数组排序，
+     * 然后利用二分查找，找到小于当前值的坐标，然后就通过下标找到个数了。
+     * 复杂度是Sum（i 属于0 ~ n） （i * log i + log i） n^2 * log(n)的复杂度。
+     * 参考 https://math.stackexchange.com/questions/1465987/sum-of-logs-in-the-form-of-1-log1-2-log2-ldots-n-log-n
+     *
+     * 其实这里很多排序是多余的。
+     * 然后我们发现可以从尾部开始遍历，每遍历一个元素，就对其排序。
+     * 如果每次遍历的排序是一个插入排序，这样复杂度变成了 n * （ n + log（n））
+     * 实际上我们在搜索的过程中已经找到元素要插入的位置了，不知道能不能把排序单个元素的复杂度降下来。
+     * 先试一下吧，感觉这个复杂还是很高。
+     *
+     * 461 ms	45.2 MB
+     * 比第一个解法的耗时还要多。
+     */
+    public List<Integer> countSmaller3(int[] nums) {
+        List<Integer> result = new ArrayList<>();
+        if (nums == null || nums.length == 0) return result;
+        int[] counts = new int[nums.length];
+        for (int i = nums.length - 2; i >= 0; i--) {
+            int j = lower(nums, i);
+            counts[i] = j - i;
+            // 排序数组
+            for (int k = i; k <= j - 1; k++) {
+                int temp = nums[k + 1];
+                nums[k + 1] = nums[k];
+                nums[k] = temp;
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            result.add(counts[i]);
+        }
+        return result;
 
+    }
 
+    private int lower(int[] nums, int i) {
+        int target = nums[i];
+        int lo = i + 1;
+        int hi = nums.length - 1;
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (nums[mid] < target) {
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        return lo - 1;
+    }
 
 
     /**
@@ -44,7 +100,6 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
     public List<Integer> countSmaller(int[] nums) {
         List<Integer> result = new ArrayList<>();
         if (nums == null || nums.length == 0) return result;
-
 
         int[] counts = new int[nums.length];
         TreeMap<Integer, int[]> indexMemo = new TreeMap<>();
@@ -86,11 +141,6 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
     /**
      * 用暴力的解法很简单，O（n^2)的复杂度，没有提交。
      * 这道题目里重复计算的部分并没有很简单的显示出来。
-     * 实际上我们反向找，每移动一个步，就将nums[i]放入一个有序的map，value是i，
-     * 这样只用向前找到仅仅小于当前值的坐标j，然后遍历到该坐标， count[j]
-     * 加上i ~ j过程中小于num[i]的数。
-     * 如果在向前找的过程中，有等于的坐标k，我们返回count[k] + 小于的数。
-     *
      */
     public List<Integer> countSmaller2(int[] nums) {
         List<Integer> result = new ArrayList<>();
