@@ -24,7 +24,10 @@ public class _315_Count_V2 {
      * 思路是这样的，我们假设左右两边都是已经排好序的数组，这时候我们merge两个数组
      * 如果新数组来自left，则count[index of 该点的值] += 此前merge的右边数组的个数。
      * 为什么呢，因为右边位于left的右边（显而易见），同时先merge的数小于left现在所处的值。
+     * 刚好是题目要求的条件。
      * 所以我们一次merge，就能确定一半（left）的count数，递归之后就能求解所有的left了。
+     * （对右边来说，本身是生序的，所以右边不存在比自己小的数，同时自己又不存在右边，故不需要 +count）
+     * （但右边的数组在子递归中是可以有部分作为左边的）
      * 5 | 2 | 6 | 1
      * 0 | 1 | 2 | 3
      * 这里有一个麻烦的地方是，需要记录merge前数组数量和index的关系
@@ -32,6 +35,8 @@ public class _315_Count_V2 {
      * 然后根据index 来确定count[]的下标。
      *
      * leetcode上有直接排序index， 而不排序nums的， 我认为同时排序可能会更直观一点，不影响复杂度。
+     *
+     *
      */
     public List<Integer> countSmaller(int[] nums) {
         int[] res = new int[nums.length];
