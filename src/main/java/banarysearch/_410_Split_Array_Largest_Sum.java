@@ -31,10 +31,58 @@ package banarysearch;
 public class _410_Split_Array_Largest_Sum {
 
     public static void main(String[] args) {
-        int[] input = {3,2,3,1,2,4,5,5,6,7,7,8,2,3,1,1,1,10,11,5,6,2,4,7,8,5,6};
+        int[] input = {7,2,5,10,8};
         _410_Split_Array_Largest_Sum instance = new _410_Split_Array_Largest_Sum();
-        System.out.println(instance.splitArray(input, 20));
+        System.out.println(instance.splitArray2(input, 2));
     }
+
+
+    /**
+     * 0 ms	+ 36.3 MB
+     * 思路是这样的，我们遍历一次数组，找到sum 和 数组中最大的单个元素max
+     * 这样我们最后分段的min sum值都在这个范围内。
+     *
+     * 因为要求分段后片段的sum值最大值最小的分法， 最大值意味着所有的片段和小于这个值
+     * 这就是我们valid方法，用来验证分段和是否都小于目标值
+     * 而这也是我们二分查找用来所以边界的判断。
+     *
+     * 我们可以看到复杂度取决于sum， n * log（sum）, 而sum <= n * max,
+     * 所以复杂度小于 n * log （n * max） max是常数，所以最终复杂度为n * log n
+     */
+    public int splitArray2(int[] nums, int m) {
+        int max = 0;
+        int sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            max = Math.max(max, nums[i]);
+            sum += nums[i];
+        }
+        int lo = max, hi = sum;
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (isValid(nums, mid, m)) {
+                hi = mid;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return lo;
+    }
+
+    // 判断m分后是否所有分段都小于等于mid
+    private boolean isValid(int[] nums, int max, int m) {
+        int sliceCount = 0;
+        int sliceSum = 0;
+        for (int num : nums) {
+            sliceSum += num;
+            if (sliceSum > max) {
+                sliceSum = num;
+                sliceCount++;
+                if (sliceCount >= m) return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * 二分查找到值后，返回坐标和返回坐标的前一个值都是需要考虑的。
