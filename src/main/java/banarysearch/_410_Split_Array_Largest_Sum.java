@@ -40,6 +40,18 @@ public class _410_Split_Array_Largest_Sum {
      * 二分查找到值后，返回坐标和返回坐标的前一个值都是需要考虑的。
      * 应该会用到回溯，所以要用到递归，递归的一个参数就是sumed， 一个参数是i；
      * test还没有通过， 超时了。
+     *
+     * 思路应该是正确的，分成m份，然后sum和最小，就是分得最均匀，而均值是可以计算的，
+     * 所以很自然的是想到利用这个均值进行计算。
+     * 比较麻烦的地方在于，平均值如果不是刚好达到，是取前一个值还是后一个值。
+     * 比方{7,2,5,10,8} m是2，均值是16，取前三个14
+     * 而m是3时，均值10，这时候在取比10小的前两个和9就不对了，需要取14。
+     * 可是最优的取法一定是这两个中的一个，所以我们就两个值都尝试一下。
+     * 所以利用的是回溯的方法。可是当m很大的时候 2^m * log（n）的复杂度就太高了。
+     *
+     * 参考了一个二分查找的解法，思路其实更简单一点。
+     * 回溯的方法没有好的方法来削减分支。如果m小一点的话，复杂度其实会好过二分查找
+     *
      */
     public int splitArray(int[] nums, int m) {
         int[] sums = new int[nums.length];
@@ -47,15 +59,11 @@ public class _410_Split_Array_Largest_Sum {
             if (i == 0) sums[i] = nums[i];
             else sums[i] = nums[i] + sums[i - 1];
         }
-
-        int i = 0;
-        int sumed = 0;
-        helper(sums, sumed, i, m, 0);
+        helper(sums, 0, 0, m, 0);
         return rRe;
     }
 
     int rRe = Integer.MAX_VALUE;
-
     private void helper(int[] sums, int sumed, int lo, int leftm, int result) {
 
         if (leftm == 1) {
@@ -65,26 +73,17 @@ public class _410_Split_Array_Largest_Sum {
         }
         int average = (sums[sums.length - 1] - sumed) / leftm;
         int[] res = search(sums, sumed + average, lo, sums.length - 1);
-
         int s = res[1];
         if (res[0] == 1 || s < sums.length) {
-            int temp = result;
-            temp = Math.max(result, sums[s] - sumed);
-            helper(sums, sums[s], s + 1, leftm - 1, temp);
+            helper(sums, sums[s], s + 1, leftm - 1, Math.max(result, sums[s] - sumed));
         }
         if (res[0] == 1) {return;}
-
-
-        s--;
-        if (s >= 0) {
+        if (--s >= 0) {
             result = Math.max(result, sums[s] - sumed);
             helper(sums, sums[s], s + 1, leftm - 1, result);
         }
 
     }
-
-
-
 
     private int[] search(int[] sums, int target, int lo, int hi) {
 
