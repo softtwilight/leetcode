@@ -1,4 +1,4 @@
-package binarysearch;
+package dp;
 
 import java.util.Arrays;
 
@@ -31,8 +31,11 @@ public class _300_Longest_Increasing_Subsequence {
     /**
      * 暴力的解法
      *
-     * 递归，目前位置的最大值。
-     * 当前值小于
+     * 递归
+     * 对于一点来说，存在两种情况，取这个点或者不取这个点。
+     * 然后所以存在2^n这么多情况，我们可以遍历所有这些列，然后计算是递增序列里的最长值。
+     * （如果是小于前一个值，那我们修剪掉取这个值的分支）
+     * 但是整体的复杂度还是O(2^n)
      */
     public int lengthOfLIS(int[] nums) {
         return lengthofLIS(nums, Integer.MIN_VALUE, 0);
@@ -52,7 +55,7 @@ public class _300_Longest_Increasing_Subsequence {
 
 
     /**
-     *
+     * 递归版本
      */
     public int lengthOfLIS2(int[] nums) {
         int memo[][] = new int[nums.length + 1][nums.length];
@@ -76,6 +79,34 @@ public class _300_Longest_Increasing_Subsequence {
         int nottaken = lengthofLIS2(nums, previndex, curpos + 1, memo);
         memo[previndex + 1][curpos] = Math.max(taken, nottaken);
         return memo[previndex + 1][curpos];
+    }
+
+    /**
+     * memo[i]的含义是以nums[i]结尾的数列包含的最长递增数列的长度。
+     * 这个是动态规划中特别重要的状态（state），也就是子问题的解。
+     *
+     * 然后我们可以遍历（0 ～ i），如果nums[i] > nums[j], 那么在j的基础上又加上了1,
+     * 然后我们求这个遍历过程中的最大值，放入memo。
+     *
+     * j的值是独立与i的值， 而i依赖j的值。
+     *
+     * 这样我们就从前往后构造了解。
+     * 最后的result就是 memo中的最大值。
+     *
+     */
+    public int lengthOfLIS3(int[] nums) {
+        int[] memo = new int[nums.length];
+        Arrays.fill(memo, 1);
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    memo[i] = Math.max(memo[i], memo[j] + 1);
+                }
+            }
+            result = Math.max(result, memo[i]);
+        }
+        return result;
     }
 
 }
