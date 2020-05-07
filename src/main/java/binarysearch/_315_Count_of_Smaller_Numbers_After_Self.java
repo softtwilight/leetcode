@@ -1,6 +1,4 @@
-package banarysearch;
-
-import com.sun.security.auth.UnixNumericGroupPrincipal;
+package binarysearch;
 
 import java.util.*;
 
@@ -28,6 +26,7 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
         System.out.println(instance.countSmaller3(input));
     }
 
+
     /**
      * 我们试试用二分查找的方法来。
      * 最开始的想法是这样的，没遍历一个数，就对之后的数组排序，
@@ -42,7 +41,10 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
      * 先试一下吧，感觉这个复杂还是很高。
      *
      * 461 ms	45.2 MB
-     * 比第一个解法的耗时还要多。
+     * 比第一个解法的耗时还要多。是对数组排序太耗时了，让复杂度无法降下来。
+     *
+     * 优化的思路在排序上，leetcode上看到有用mergesort实现的
+     *
      */
     public List<Integer> countSmaller3(int[] nums) {
         List<Integer> result = new ArrayList<>();
@@ -62,7 +64,6 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
             result.add(counts[i]);
         }
         return result;
-
     }
 
     private int lower(int[] nums, int i) {
@@ -102,6 +103,7 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
         if (nums == null || nums.length == 0) return result;
 
         int[] counts = new int[nums.length];
+        //key为nums[i]，数组第一位记录上一个nums[i]的坐标， 数组第二位记录nums[i]此前出现的个数
         TreeMap<Integer, int[]> indexMemo = new TreeMap<>();
         for (int i = nums.length - 1; i >= 0; i--) {
             Map.Entry<Integer, int[]> lowerEntry = indexMemo.lowerEntry(nums[i]);
@@ -113,7 +115,6 @@ public class _315_Count_of_Smaller_Numbers_After_Self {
             }
             if (lowerEntry == null) {
                 counts[i] = 0;
-                continue;
             } else {
                 int count = 0;
                 int[] value = lowerEntry.getValue();

@@ -1,4 +1,4 @@
-package banarysearch;
+package binarysearch;
 
 /**
  *

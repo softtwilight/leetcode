@@ -58,7 +58,7 @@ public class _300_Longest_Increasing_Subsequence {
      * 递归版本
      */
     public int lengthOfLIS2(int[] nums) {
-        int memo[][] = new int[nums.length + 1][nums.length];
+        int[][] memo = new int[nums.length + 1][nums.length];
         for (int[] l : memo) {
             Arrays.fill(l, -1);
         }
@@ -107,6 +107,22 @@ public class _300_Longest_Increasing_Subsequence {
             result = Math.max(result, memo[i]);
         }
         return result;
+    }
+
+    public int lengthOfLIS4(int[] nums) {
+        int[] dp = new int[nums.length];
+        int len = 0;
+        for (int num : nums) {
+            int i = Arrays.binarySearch(dp, 0, len, num);
+            if (i < 0) {
+                i = -(i + 1);
+            }
+            dp[i] = num;
+            if (i == len) {
+                len++;
+            }
+        }
+        return len;
     }
 
 }

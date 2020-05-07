@@ -45,6 +45,7 @@ public class M_718_Maximum_Length_of_Repeated_Subarray {
      *  我们假设i, j 有A[i] = B[j]，那么memo[i][j] = memo[i+1][j+1] + 1;
      *
      *  这样我们bottom-up构建memo， 返回memo中的max值。
+     *  51 ms  +  48.5 MB
      */
     public int findLength2(int[] A, int[] B) {
         int ans = 0;

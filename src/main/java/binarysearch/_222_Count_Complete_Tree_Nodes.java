@@ -1,4 +1,4 @@
-package banarysearch;
+package binarysearch;
 
 /**
  *
@@ -30,7 +30,7 @@ public class _222_Count_Complete_Tree_Nodes {
 
     /**
      * 0 ms	+ 41.9 MB
-     * 一个非常简单的递归题，我也不是很懂为什么是中等难度，而且很多人解得很复杂。
+     * 一个非常简单的递归题，我也不是很懂为什么是中等难度。
      */
     public int countNodes(TreeNode root) {
         if (root == null) {

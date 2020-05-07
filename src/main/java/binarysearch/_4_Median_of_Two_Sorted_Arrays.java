@@ -1,8 +1,4 @@
-package banarysearch;
-
-import static java.lang.Math.*;
-import java.util.Arrays;
-import java.util.Enumeration;
+package binarysearch;
 
 /**
  * There are two sorted arrays nums1 and nums2 of size m and n respectively.

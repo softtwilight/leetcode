@@ -1,4 +1,4 @@
-package banarysearch;
+package binarysearch;
 
 /**
  * Write an efficient algorithm that searches for a value in an m x n matrix.
@@ -47,7 +47,7 @@ public class _74_Search_2D_Matrix {
                 return true;
             } else if (v < target) {
                 lo = mid + 1;
-            } else if (v > target) {
+            } else {
                 hi = mid - 1;
             }
 

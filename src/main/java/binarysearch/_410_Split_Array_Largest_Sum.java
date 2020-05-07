@@ -1,4 +1,4 @@
-package banarysearch;
+package binarysearch;
 
 /**
  * Given an array which consists of non-negative integers and an integer m,
