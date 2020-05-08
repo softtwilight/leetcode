@@ -109,6 +109,15 @@ public class _300_Longest_Increasing_Subsequence {
         return result;
     }
 
+    /**
+     * 利用二分查找的解法
+     * 复杂度为n * log n
+     *
+     * 维基上有介绍，看图会清晰一些 https://en.wikipedia.org/wiki/Longest_increasing_subsequence
+     * 思想是找插入位置，然后替换掉插入位置的后一位。
+     * 数组长度就是的就是最后的解。
+     *
+     */
     public int lengthOfLIS4(int[] nums) {
         int[] dp = new int[nums.length];
         int len = 0;
