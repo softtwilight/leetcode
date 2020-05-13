@@ -19,11 +19,12 @@ public class _424_M_Longest_Repeating_Char_Replace {
     private static final _424_M_Longest_Repeating_Char_Replace instance = new _424_M_Longest_Repeating_Char_Replace();
 
     public static void main(String[] args) {
-        System.out.println('B' - 'A');
+        System.out.println((int)'Z');
 
         String s = "AAAACABA", s2 = "ABAB";
-        int k = 1, k2 = 2;
-        System.out.println(instance.characterReplacement(s, k));
+        int k = 4, k2 = 2;
+
+        System.out.println(instance.characterReplacement2(s, k));
         System.out.println(instance.characterReplacement(s2, k2));
     }
 
@@ -88,5 +89,26 @@ public class _424_M_Longest_Repeating_Char_Replace {
             hi++;
         }
         return result;
+    }
+
+
+    /**
+     * 看到了另一个post，这个view更好，更直观
+     * 把max + k 看出是windos的大小，这样就是一个可变windows的滑动窗口题目了，
+     * 只有当max增长才会更新windos大小。
+     * 这样抽象后就不用考虑更多边界情况了。
+     */
+    public int characterReplacement2(String s, int k) {
+        //用冗余的空间减少字符到index的映射,实际上91的大小就可以了
+        int[] count = new int[128];
+        int max=0;
+        int start=0;
+        for(int end=0; end<s.length(); end++)
+        {
+            max = Math.max(max, ++count[s.charAt(end)]);
+            if(max+k<=end-start)
+                count[s.charAt(start++)]--;
+        }
+        return s.length()-start;
     }
 }
