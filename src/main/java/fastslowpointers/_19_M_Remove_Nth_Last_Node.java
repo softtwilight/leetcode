@@ -22,13 +22,14 @@ public class _19_M_Remove_Nth_Last_Node {
             return head;
         }
         ListNode slow = head, fast = head;
-        while (n > 0) {
+        while (n > 0 && fast != null) {
             fast = fast.next;
             n--;
         }
         // head被删除的情况， 这里导致提交错了好多次。。。
-        if (fast == null) return head.next;
-
+        if (fast == null) {
+            return n > 0 ? head : head.next;
+        }
         while (fast.next != null) {
             slow = slow.next;
             fast = fast.next;
