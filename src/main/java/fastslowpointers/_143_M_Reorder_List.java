@@ -45,4 +45,52 @@ public class _143_M_Reorder_List {
         }
         fast.next = null;
     }
+
+
+    /**
+     * 可以把题目拆为三个部分
+     * 1. 找中点
+     * 2. 中点之后的node倒序
+     * 3. 然后merge 前半部分和 后半部分
+     *
+     * node的指针操作还挺繁琐的
+     */
+    public void reorderList2(ListNode head) {
+        if (head == null) {
+            return;
+        }
+
+        // Find the middle node
+        ListNode slow = head, fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Reverse the second half
+        ListNode head2 = reverse(slow.next);
+        slow.next = null;
+
+        // Link the two halves together
+        while (head != null && head2 != null) {
+            ListNode tmp1 = head.next;
+            ListNode tmp2 = head2.next;
+            head2.next = head.next;
+            head.next = head2;
+            head = tmp1;
+            head2 = tmp2;
+        }
+    }
+
+    private ListNode reverse(ListNode n) {
+        ListNode prev = null;
+        ListNode cur = n;
+        while (cur != null) {
+            ListNode tmp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = tmp;
+        }
+        return prev;
+    }
 }
