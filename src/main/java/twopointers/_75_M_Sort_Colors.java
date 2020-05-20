@@ -22,7 +22,7 @@ public class _75_M_Sort_Colors {
     /**
      * 参考别人的， 这个就太简单了。。。
      * 记录0，1， 2的个数， 然后重新赋值。
-     * 这是不同于排序的思路。
+     * 这是相当于桶排序的思路的思路。
      */
     public void sortColors2(int[] nums) {
         int colors = 3;
@@ -37,9 +37,7 @@ public class _75_M_Sort_Colors {
 
     /**
      * 这个解法也相当机智，很像堆积木
-     *
      * 对有限个数，0， 1， 2的数组都以用这个和上面的类似方法
-     *
      */
     void sortColors3(int A[]) {
         int n0 = -1, n1 = -1, n2 = -1;

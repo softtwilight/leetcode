@@ -1,10 +1,7 @@
 package binarysearch;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Given two integer arrays A and B, return the maximum length of an subarray that appears in both arrays.
@@ -27,8 +24,8 @@ import java.util.stream.Collectors;
  * Author:   softtwilight
  * Date:     2020/05/07 21:55
  */
-public class M_718_Maximum_Length_of_Repeated_Subarray {
-    static M_718_Maximum_Length_of_Repeated_Subarray instance = new M_718_Maximum_Length_of_Repeated_Subarray();
+public class _718_M_Maximum_Length_of_Repeated_Subarray {
+    static _718_M_Maximum_Length_of_Repeated_Subarray instance = new _718_M_Maximum_Length_of_Repeated_Subarray();
 
     public static void main(String[] args) {
         int[] A = {1,2,3,2,1};

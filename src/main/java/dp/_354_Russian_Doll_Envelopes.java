@@ -1,4 +1,4 @@
-package binarysearch;
+package dp;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -31,7 +31,7 @@ public class _354_Russian_Doll_Envelopes {
     }
 
     /**
-     * 没有思路啊
+     *
      */
     public static int maxEnvelopes(int[][] envelopes) {
         if (envelopes == null || envelopes.length == 0) return 0;

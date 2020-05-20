@@ -29,7 +29,6 @@ public class _844_E_Backspace_String_Compare {
                 tBack += T.charAt(t) == '#' ? 1 : -1;
                 t--;
             }
-
             // 如果两个元素都存在（也就是不是""），判断相等与否（return early）
             if (s >= 0 && t >= 0 && S.charAt(s) != T.charAt(t)) {
                 return false;
