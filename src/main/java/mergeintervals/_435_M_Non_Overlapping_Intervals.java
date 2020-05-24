@@ -1,6 +1,7 @@
 package mergeintervals;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * Author:   softtwilight
@@ -47,5 +48,30 @@ public class _435_M_Non_Overlapping_Intervals {
             }
         }
         return count;
+    }
+
+    /**
+     * 这是1ms的解法
+     */
+    public int eraseOverlapIntervals2(int[][] intervals) {
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+        // 按 start 升序排序
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
+        // 至少有一个区间不相交
+        int count = 1;
+        int len = intervals.length;
+        int start = intervals[len - 1][0];
+        for (int i = len - 1; i >= 0; i--) {
+            int[] interval = intervals[i];
+            int end = interval[1];
+            if (end <= start) {
+                // 找到下一个选择的区间了
+                count++;
+                start = interval[0];
+            }
+        }
+        return intervals.length - count;
     }
 }

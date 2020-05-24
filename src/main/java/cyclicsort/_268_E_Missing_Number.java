@@ -1,4 +1,4 @@
-package array;
+package cyclicsort;
 
 import java.util.Arrays;
 
@@ -55,5 +55,26 @@ public class _268_E_Missing_Number {
             missing ^= i ^ nums[i];
         }
         return missing;
+    }
+
+
+    /**
+     * cyclic sort
+     */
+    public int missingNumber3(int[] nums) {
+
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] < nums.length && nums[nums[i]] != nums[i]) {
+                int temp = nums[nums[i]];
+                nums[nums[i]] = nums[i];
+                nums[i] = temp;
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (i != nums[i]) {
+                return i;
+            }
+        }
+        return nums.length;
     }
 }

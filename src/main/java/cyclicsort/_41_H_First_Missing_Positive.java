@@ -1,4 +1,4 @@
-package array;
+package cyclicsort;
 
 /**
  * https://leetcode.com/problems/first-missing-positive/
