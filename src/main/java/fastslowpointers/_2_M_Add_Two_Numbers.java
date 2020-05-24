@@ -1,5 +1,7 @@
 package fastslowpointers;
 
+import datastructure.ListNode;
+
 /**
  * https://leetcode.com/problems/add-two-numbers/submissions/
  *

@@ -1,4 +1,4 @@
-package fastslowpointers;
+package datastructure;
 
 /**
  *
@@ -6,13 +6,13 @@ package fastslowpointers;
  * Date:     2020/05/18 23:39
  */
 public class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     ListNode() {
     }
 
-    ListNode(int val) {
+    public ListNode(int val) {
         this.val = val;
     }
 
@@ -21,7 +21,7 @@ public class ListNode {
         this.next = next;
     }
 
-    static ListNode createByArray(int[] vals) {
+    public static ListNode createByArray(int[] vals) {
         ListNode first = new ListNode(vals[0]);
         ListNode temp = first;
         for (int i = 1; i < vals.length; i++) {
@@ -31,7 +31,7 @@ public class ListNode {
         return first;
     }
 
-    void print() {
+    public void print() {
         ListNode temp = this;
         while (temp != null) {
             if (temp.next != null) {

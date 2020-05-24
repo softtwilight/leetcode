@@ -1,5 +1,7 @@
 package fastslowpointers;
 
+import datastructure.ListNode;
+
 import java.util.Stack;
 
 /**
