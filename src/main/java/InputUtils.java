@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * Author:   softtwilight
  * Date:     2020/05/06 21:07
@@ -5,12 +8,24 @@
 public class InputUtils {
 
     public static void main(String[] args) {
-        System.out.println(convertArrayString("[10,9,2,5,3,7,101,18]"));
+        String input = "[[0,2],[5,10],[13,23],[24,25]][1,5],[8,12],[15,24],[25,26]]";
+        convertArrayString(input);
+
+        String questionName = "103. Binary Tree Zigzag Level Order Traversal";
+        String difficulty = "M";
+        printClassName(questionName, difficulty);
     }
 
-    public static String convertArrayString(String arrayStr) {
+    public static void convertArrayString(String arrayStr) {
         arrayStr = arrayStr.replace('[', '{');
         arrayStr = arrayStr.replace(']', '}');
-        return arrayStr;
+        System.out.println(arrayStr);
+    }
+
+    public static void printClassName(String name, String difficulty) {
+        name = name.replace(".", " " + difficulty);
+        String result = Arrays.stream(name.split(" "))
+                .collect(Collectors.joining("_", "_", ""));
+        System.out.println(result);
     }
 }
