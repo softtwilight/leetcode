@@ -66,6 +66,30 @@ public class _105_M_Construct_Binary_Tree {
     }
 
 
+
+    private int in = 0;
+    private int pre = 0;
+
+    /**
+     * https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/discuss/34543/Simple-O(n)-without-map
+     * 这个解法很棒，但是还没有完全理解他的正确性。
+     */
+    public TreeNode buildTree2(int[] preorder, int[] inorder) {
+        return build(preorder, inorder, Integer.MIN_VALUE);
+    }
+
+    private TreeNode build(int[] preorder, int[] inorder, int stop) {
+        if (pre >= preorder.length) return null;
+        if (inorder[in] == stop) {
+            in++;
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[pre++]);
+        node.left = build(preorder, inorder, node.val);
+        node.right = build(preorder, inorder, stop);
+        return node;
+    }
+
     private void preorder(TreeNode node, List<Integer> re) {
         if (node == null) return;
         re.add(node.val);
