@@ -18,18 +18,25 @@ public class _208_M_Implement_Trie {
 
     /**
      * 	39 ms	57.6 MB
+     * 	solution里Node是用26长度的数组来放child，这个可以优化一下。
+     * 	还有就是内部变量c在这里也不是必要的，因为map的key就是c，不知道c是不能找到Node的
+     * 	sreach 和 sreachPrefix的搜索部分有部分代码可以公用的。
+     *
+     * solution的代码写得很好，可以参考
+     * https://leetcode.com/problems/implement-trie-prefix-tree/solution/
+     *
      */
     class Trie {
 
         class Node {
-            Character c;
             Map<Character, Node> child = new HashMap<>();
             boolean isFinish = false;
-            public Node(Character c) {
-                this.c = c;
+
+            public Node getChild(char c) {
+                return child.get(c);
             }
         }
-        Node head = new Node('0');
+        Node head = new Node();
 
         /** Initialize your data structure here. */
         public Trie() {
@@ -39,7 +46,7 @@ public class _208_M_Implement_Trie {
         public void insert(String word) {
             Node cur = head;
             for (int i = 0; i < word.length(); i++) {
-                Node no = cur.child.computeIfAbsent(word.charAt(i), Node::new);
+                Node no = cur.child.computeIfAbsent(word.charAt(i), c -> new Node());
                 cur = no;
             }
             cur.isFinish = true;
@@ -49,7 +56,7 @@ public class _208_M_Implement_Trie {
         public boolean search(String word) {
             Node cur = head;
             for (int i = 0; i < word.length(); i++) {
-                cur = cur.child.get(word.charAt(i));
+                cur = cur.getChild(word.charAt(i));
                 if (cur == null) return false;
             }
             return cur.isFinish;
@@ -59,7 +66,7 @@ public class _208_M_Implement_Trie {
         public boolean startsWith(String prefix) {
             Node cur = head;
             for (int i = 0; i < prefix.length(); i++) {
-                cur = cur.child.get(prefix.charAt(i));
+                cur = cur.getChild(prefix.charAt(i));
                 if (cur == null) return false;
             }
             return true;
