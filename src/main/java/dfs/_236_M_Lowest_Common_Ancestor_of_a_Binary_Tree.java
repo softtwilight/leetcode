@@ -44,7 +44,10 @@ public class _236_M_Lowest_Common_Ancestor_of_a_Binary_Tree {
      *  然后利用了题目的限制，我们在求解总问题的时候， 只会限制在返回 p 和 q 的最小祖先
      *  在递归时，却是含义更广的function。
      *
+     * 所以这个解法是利用了隐含条件， root有p q 两个节点， 如果没有这个隐含条件，我们在搜索到
+     * p 或 q的时候是不能直接放回的， 而是要接着往下搜索， 确定p q 是不是子节点。
      *
+     * 而在235里使用的方法，找parent的路径可能是更通用的解法。
      *
      */
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
