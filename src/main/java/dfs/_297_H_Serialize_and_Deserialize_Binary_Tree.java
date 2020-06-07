@@ -52,6 +52,7 @@ public class _297_H_Serialize_and_Deserialize_Binary_Tree {
      *
      * 然后新节点添加到parent的 子节点后，如果不为null， 就把新的节点也入栈。
      *
+     * 这个方法纠结的地方在于ser 和 deser 的逻辑看起来不连贯
      */
     public TreeNode deserialize(String data) {
         if (!data.contains(",")) {
@@ -79,5 +80,25 @@ public class _297_H_Serialize_and_Deserialize_Binary_Tree {
             }
         }
         return result;
+    }
+
+    // 递归版本
+    // 基于栈的实现感觉都可以转换为用递归实现，因为递归本身也是方法调用的栈
+    // 简单就是beauty
+    public TreeNode deserialize2(String data) {
+        Deque<String> nodes = new LinkedList<>();
+        nodes.addAll(Arrays.asList(data.split("，")));
+        return buildTree(nodes);
+    }
+
+    private TreeNode buildTree(Deque<String> nodes) {
+        String val = nodes.remove();
+        if (val.equals("#")) return null;
+        else {
+            TreeNode node = new TreeNode(Integer.valueOf(val));
+            node.left = buildTree(nodes);
+            node.right = buildTree(nodes);
+            return node;
+        }
     }
 }
