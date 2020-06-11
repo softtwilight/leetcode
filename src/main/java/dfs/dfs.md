@@ -17,8 +17,9 @@ dfs的题很多都是Tree（graph），有着分形一样的结构，也就是�
 1. A.val == B.val
 2. A.left == B.left
 3. A.right == B.right
+
 然后23就是我们运用这个function的地方。
-这样加上边界条件就构成了我们最终的Function。
+这样加上边界条件就构成了我们最终的Function：
 ``` java
     public boolean isSameTree(TreeNode p, TreeNode q) {
         if (p == null) return q == null;
@@ -29,6 +30,6 @@ dfs的题很多都是Tree（graph），有着分形一样的结构，也就是�
     }
 ```
 
-DFS是我非常喜欢的算法（或者说递归）。首先一般很简洁，第二是
-思维的量不大，你只需要关于局部问题，当前这一层的逻辑和这一层与下一层的关系，
+
+DFS是我非常喜欢的算法（或者说递归）。首先一般很简洁，美；第二是思维的量不大，你只需要关于局部问题，当前这一层的逻辑和这一层与下一层的关系，
 然后就可以解决非常复杂的问题了，是一种非常好的抽象。
