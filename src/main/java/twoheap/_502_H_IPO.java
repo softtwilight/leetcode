@@ -18,7 +18,38 @@ public class _502_H_IPO {
         int[] profits = {1, 2, 3};
         int[] captials = {0, 1, 1};
 
-        System.out.println(instance.findMaximizedCapital(k, W, profits, captials));
+        System.out.println(instance.findMaximizedCapital2(k, W, profits, captials));
+    }
+
+    /**
+     * 67 ms  +	53.9 MB
+     *
+     * 思路来自discuss，这个方法虽然慢， 但是思路非常棒
+     * （叫costQueue好像不太对， 其实是启动资金， 不是成本
+     * 讲成本低于现有capital W的数组都放入到收益queue中，
+     * 然后取最大的一个。
+     * 直到k结束或者项目结束。
+     *
+     * 提交里最快的解法是在暴力解的基础上优化了一下的，
+     *
+     */
+
+    public int findMaximizedCapital2(int k, int W, int[] Profits, int[] Capital) {
+
+        PriorityQueue<int[]> costQueue = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        PriorityQueue<int[]> profitQueue = new PriorityQueue<>((a, b) -> b[1] - a[1]);
+
+        for (int i = 0; i < Profits.length; i++) {
+            costQueue.add(new int[]{Capital[i], Profits[i]});
+        }
+        while (k-- > 0) {
+            while (!costQueue.isEmpty() && costQueue.peek()[0] <= W) {
+                profitQueue.offer(costQueue.poll());
+            }
+            if (profitQueue.isEmpty()) break;
+            W += profitQueue.poll()[1];
+        }
+        return W;
     }
 
     /**
