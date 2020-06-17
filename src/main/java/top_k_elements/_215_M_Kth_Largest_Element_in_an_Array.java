@@ -1,5 +1,6 @@
 package top_k_elements;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
@@ -13,8 +14,50 @@ public class _215_M_Kth_Largest_Element_in_an_Array {
     private static final _215_M_Kth_Largest_Element_in_an_Array instance = new _215_M_Kth_Largest_Element_in_an_Array();
 
     public static void main(String[] args) {
-        int[] nums = {3,2,3,1,2,4,5,5,6};
-        System.out.println(instance.findKthLargest(nums, 9));
+        int[] nums = {2, 1};
+        System.out.println(instance.findKthLargest3(nums, 1));
+    }
+
+    /**
+     *
+     */
+    public int findKthLargest3(int[] nums, int k) {
+        k = nums.length - k;
+        int lo = 0, hi = nums.length - 1;
+        while (lo <= hi) {
+            int pivotIndex = quickSort(nums, lo, hi);
+            if (pivotIndex == k) return nums[k];
+            if (pivotIndex > k) {
+                hi = pivotIndex - 1;
+            } else {
+                lo = pivotIndex + 1;
+            }
+        }
+        return -1;
+
+    }
+
+    private int quickSort(int[] nums, int lo, int hi) {
+        int pivot = lo;
+        lo++;
+        hi--;
+        while (lo < hi) {
+            while (lo < hi && nums[lo] < nums[pivot]) {
+                lo++;
+            }
+            while (lo < hi && nums[hi] > nums[pivot]) {
+                hi--;
+            }
+            swap(nums, lo, hi);
+        }
+        swap(nums, pivot, hi - 1);
+        return hi - 1;
+    }
+
+    void  swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 
     /**
