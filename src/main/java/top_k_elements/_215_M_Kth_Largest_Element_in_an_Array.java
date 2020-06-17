@@ -3,6 +3,7 @@ package top_k_elements;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 /**
  * https://leetcode.com/problems/kth-largest-element-in-an-array/
@@ -15,46 +16,43 @@ public class _215_M_Kth_Largest_Element_in_an_Array {
 
     public static void main(String[] args) {
         int[] nums = {2, 1};
-        System.out.println(instance.findKthLargest3(nums, 1));
+        System.out.println(instance.findKthLargest(nums, 1));
     }
 
     /**
-     *
+     * 	1 ms	39.3 MB
      */
-    public int findKthLargest3(int[] nums, int k) {
+    public int findKthLargest(int[] nums, int k) {
         k = nums.length - k;
         int lo = 0, hi = nums.length - 1;
+        Random ra = new Random();
         while (lo <= hi) {
-            int pivotIndex = quickSort(nums, lo, hi);
-            if (pivotIndex == k) return nums[k];
+            int pivot = lo + ra.nextInt(hi - lo + 1);
+            int pivotIndex = partition(nums, lo, hi, pivot);
+            if (pivotIndex == k) break;
             if (pivotIndex > k) {
                 hi = pivotIndex - 1;
             } else {
                 lo = pivotIndex + 1;
             }
         }
-        return -1;
-
+        return nums[k];
     }
 
-    private int quickSort(int[] nums, int lo, int hi) {
-        int pivot = lo;
-        lo++;
-        hi--;
-        while (lo < hi) {
-            while (lo < hi && nums[lo] < nums[pivot]) {
-                lo++;
+    private int partition(int[] nums, int lo, int hi, int pivot) {
+        swap(nums, pivot, hi);
+        int storeIndex = lo;
+        for (int i = lo; i < hi; i++) {
+            if (nums[i] < nums[hi]) {
+                swap(nums, storeIndex, i);
+                storeIndex++;
             }
-            while (lo < hi && nums[hi] > nums[pivot]) {
-                hi--;
-            }
-            swap(nums, lo, hi);
         }
-        swap(nums, pivot, hi - 1);
-        return hi - 1;
+        swap(nums, storeIndex, hi);
+        return storeIndex;
     }
 
-    void  swap(int[] nums, int i, int j) {
+    void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
@@ -64,7 +62,7 @@ public class _215_M_Kth_Largest_Element_in_an_Array {
      * 3 ms	+ 39.7 MB
      * 利用堆， 依次取出k个元素， 我们判断k 和 数组一般的长度，决定用最大堆还是最小堆
      */
-    public int findKthLargest(int[] nums, int k) {
+    public int findKthLargest3(int[] nums, int k) {
         PriorityQueue<Integer> priorityQueue;
         if (k > nums.length / 2 ) {
             priorityQueue = new PriorityQueue<>();
