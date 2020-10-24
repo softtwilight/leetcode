@@ -5,6 +5,8 @@ package mit_6006;
  * Date:     2020/10/22 21:33
  *
  * https://leetcode.com/problems/find-peak-element/
+ *
+ * 6006 第一课相关
  */
 public class _162_M_Find_Peak_Element {
     private static final _162_M_Find_Peak_Element instance = new _162_M_Find_Peak_Element();
