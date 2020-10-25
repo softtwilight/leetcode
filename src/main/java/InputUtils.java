@@ -1,3 +1,4 @@
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -8,16 +9,18 @@ import java.util.stream.Collectors;
 public class InputUtils {
 
     public static void main(String[] args) {
-        String input = "[[0,2],[5,10],[13,23],[24,25]][1,5],[8,12],[15,24],[25,26]]";
+        String input = "[[1,2,3,4,5],[6,7,8,9,10],[11,12,13,14,15],[16,17,18,19,20],[21,22,23,24,25]]";
         convertArrayString(input);
 
-        String questionName = "199. Binary Tree Right Side View";
+        String questionName = "912. Sort an Array";
         String difficulty = "M";
         printClassName(questionName, difficulty);
+
     }
 
     public static void convertArrayString(String arrayStr) {
         arrayStr = arrayStr.replace('[', '{');
+        arrayStr = arrayStr.replace('"', '\'');
         arrayStr = arrayStr.replace(']', '}');
         System.out.println(arrayStr);
     }
@@ -28,4 +31,5 @@ public class InputUtils {
                 .collect(Collectors.joining("_", "_", ""));
         System.out.println(result);
     }
+
 }

@@ -14,10 +14,61 @@ public class _912_M_Sort_an_Array {
     private static final _912_M_Sort_an_Array instance = new _912_M_Sort_an_Array();
 
     public static void main(String[] args) {
-        int[] nums = {5,2,3,1};
-        instance.insertSort(nums);
-        System.out.println(Arrays.toString(nums));
+        int[] nums = {1,2,3,5};
+//        instance.heapSort(nums);
+        System.out.println(Arrays.toString(instance.heapSort(nums)));
     }
+
+    /**
+     * heap sort
+     */
+    public int[] heapSort(int[] nums) {
+        int[] result = new int[nums.length];
+
+        // build max heap
+        for (int i = nums.length - 1 / 2; i >= 0; i--) {
+            maxHeapify(nums, i, nums.length);
+        }
+
+        for (int i = nums.length - 1; i >= 0; i--) {
+            int max = extractMax(nums, i);
+            result[i] = max;
+        }
+        return result;
+
+    }
+
+    private int extractMax(int[] nums, int i) {
+        int max = nums[0];
+        swap(nums, 0, i);
+        maxHeapify(nums, 0, i);
+        return max;
+    }
+
+    private void maxHeapify(int[] nums, int i, int heapSize) {
+        if (i * 2 + 1 >= heapSize) return;
+        int largest = i;
+        if (nums[i] < nums[2 * i + 1]) {
+            largest = 2 * i + 1;
+        }
+        if (2 * i + 2 < heapSize && nums[largest] < nums[2 * i + 2]) {
+            largest = 2 * i + 2;
+        }
+        if (largest == i) return;
+        swap(nums, i, largest);
+        maxHeapify(nums, largest, heapSize);
+    }
+
+    private void swap(int[] nums, int n1, int n2) {
+        int temp = nums[n1];
+        nums[n1] = nums[n2];
+        nums[n2] = temp;
+    }
+
+
+
+
+
 
     /**
      * insert sort
