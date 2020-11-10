@@ -22,13 +22,18 @@ public class _43_M_Multiply_Strings {
      * 2 ^ 63 - 1 = 9.223372e+18
      *
      * 利用divide-conquer方法解的，在merge子方法的解的时候还有问题没解决。
+     *
+     * test-case  是通过了  T(n) = 4T(n/2) + O(n),  还是n^2的复杂度
+     * z1 = (x0 + x1) · (y0 + y1) − z0 − z2 = x0y1 + x1y0
+     *
+     * 这个没有去实现， 实现了后复杂度为降到n ^ log(2) 3
      */
     public String multiply(String num1, String num2) {
         if (num1 == null || num1.length() == 0) return num2;
         if (num2 == null || num2.length() == 0) return num1;
         if (num1.equals("0") || num2.equals("0")) return "0";
 
-        if (num1.length() < 9 && num2.length() < 9) {
+        if (num1.length() + num2.length() < 18) {
             Long result = Long.parseLong(num1) * Long.parseLong(num2);
             return result.toString();
         }
@@ -44,11 +49,6 @@ public class _43_M_Multiply_Strings {
         String X3 = multiply(low1, low2);
         String X1 = multiply(big1, low2);
         String X2 = multiply(big2, low1);
-
-
-        int i = X1.length() - 1, j = X2.length() - 1;
-
-
 
         StringBuilder sb1 = new StringBuilder(X1);
         int len1 = (num1.length() + 1) / 2;
@@ -68,7 +68,6 @@ public class _43_M_Multiply_Strings {
         temp = addTwoString(temp, sb2);
         temp = addTwoString(temp, sb0);
         return temp;
-//        return addTwoString(addTwoString(addTwoString(X3, sb1), sb2), X0);
     }
 
     String addTwoString(CharSequence X1, CharSequence X2) {
