@@ -20,8 +20,11 @@ public class _99_H_Recover_Binary_Search_Tree {
     }
 
     /**
-     * inOrder 遍历是排序的，所以相当与在排序的数组中找到交换位置的两个数。
+     * inOrder 遍历是排序的，所以相当于在排序的数组中找到交换位置的两个数。
      * 怎么判断没有深想，直接排序的方法先解出来。
+     *
+     * 要判断是否逆序， 其实逻辑不是很复杂， 把图画出来应该就能明白了。
+     *
      */
     public void recoverTree(TreeNode root) {
         List<TreeNode> list = new ArrayList<>();
@@ -39,6 +42,41 @@ public class _99_H_Recover_Binary_Search_Tree {
         inOrderTrans(root.left, list);
         list.add(root);
         inOrderTrans(root.right, list);
+    }
+
+
+    private TreeNode prev;
+    private TreeNode first;
+    private TreeNode second;
+
+    public void recoverTree2(TreeNode root) {
+        prev = null;
+        first = null;
+        second = null;
+
+        inorder(root);
+
+        int tmp = first.val;
+        first.val = second.val;
+        second.val = tmp;
+    }
+
+    private void inorder(TreeNode curr) {
+        if (curr == null) {
+            return;
+        }
+
+        inorder(curr.left);
+
+        if (prev != null && prev.val > curr.val) {
+            if (first == null) {
+                first = prev;
+            }
+            second = curr;
+        }
+        prev = curr;
+
+        inorder(curr.right);
     }
 
 
