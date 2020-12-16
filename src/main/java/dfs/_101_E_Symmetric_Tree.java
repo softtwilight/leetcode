@@ -19,8 +19,7 @@ public class _101_E_Symmetric_Tree {
      *
      */
     public boolean isSymmetric(TreeNode root) {
-        if (root == null) return true;
-        return dfs(root.left, root.right);
+        return dfs(root, root);
     }
 
     private boolean dfs(TreeNode left, TreeNode right) {
