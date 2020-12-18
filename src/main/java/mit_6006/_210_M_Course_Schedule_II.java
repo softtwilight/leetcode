@@ -15,8 +15,8 @@ public class _210_M_Course_Schedule_II {
     private static final _210_M_Course_Schedule_II instance = new _210_M_Course_Schedule_II();
 
     public static void main(String[] args) {
-        int[][] input = {{0, 1}, {1, 0}};
-        System.out.println(Arrays.toString(instance.findOrder(2, input)));
+        int[][] input = {{1, 2}, {2, 3}, {3, 4}, {0, 4}, {1, 0}};
+        System.out.println(Arrays.toString(instance.findOrder(5, input)));
     }
 
     /**
@@ -25,6 +25,14 @@ public class _210_M_Course_Schedule_II {
      * There may have bug, we start the dfs at vertex 0, but vertex may depend on another vertex
      *
      * So I think we should start with the vertex which has no predecessor.
+     *
+     * But when I add the predecessorMark, I miss the cycle check.
+     *
+     * So when i come back to see the algorithm, I find that the order to begin dfs isn't matter
+     *
+     * If we start the no predecessor vertex, it's fine.
+     * otherwise we start the middle vertex, we transverse the final list,
+     * so then predecessor will ensure have a lower instance to the beginning vertex.
      */
     public int[] findOrder(int numCourses, int[][] prerequisites) {
 
@@ -33,8 +41,10 @@ public class _210_M_Course_Schedule_II {
         for (int i = 0; i < numCourses; i++) {
             graph.add(new ArrayList<>());
         }
+//        int[] predecessorMark = new int[numCourses];
         for(int[] edge : prerequisites) {
             graph.get(edge[1]).add(edge[0]);
+//            predecessorMark[edge[0]] = 1;
         }
 
         // mark the visiting vertex to 1, finish vertex to 2
@@ -43,9 +53,9 @@ public class _210_M_Course_Schedule_II {
         // append the vertex in the dfs finish order
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < numCourses; i++) {
-            if (!dfs(i, graph, mark, result)) {
-                return new int[0];
-            }
+                if (!dfs(i, graph, mark, result)) {
+                    return new int[0];
+                }
         }
 
         // reverse the list
