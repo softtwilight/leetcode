@@ -14,11 +14,11 @@ public class _131_M_Palindrome_Partitioning {
 
     public static void main(String[] args) {
 
-        String input = "a";
+        String input = "aaabbcccccccccccccccccdddd";
         instance.partition(input)
                 .forEach(a -> {
-                    a.stream().forEach(System.out::println);
-                    System.out.println();
+//                    a.stream().forEach(System.out::println);
+//                    System.out.println();
                 });
     }
 
@@ -28,21 +28,7 @@ public class _131_M_Palindrome_Partitioning {
     public List<List<String>> partition(String s) {
         List<List<String>>[] memo = new ArrayList[s.length()];
         return dp(0, s, memo);
-//        return result;
-//        return reverse(result);
     }
-
-//    private List<List<String>> reverse(List<List<String>> re) {
-//        for (int i = 0; i < re.size(); i++) {
-//            List<String> src = re.get(i);
-//            List<String> dest = new ArrayList<>(src.size());
-//            for (int j = src.size() -1; j >= 0; j--) {
-//                dest.add(src.get(j));
-//            }
-//            re.set(i, dest);
-//        }
-//        return re;
-//    }
 
     private List<List<String>> dp(int i, String s, List<List<String>>[] memo) {
         List<List<String>> result = new ArrayList<>();
@@ -54,8 +40,12 @@ public class _131_M_Palindrome_Partitioning {
         if (memo[i] != null) return memo[i];
         for (int k = i; k < s.length(); k++) {
             if (isPalindrome(i, k, s)) {
+
+                // see someone use backtracking here
                 List<List<String>> subResult = dp(k + 1, s, memo);
                 for (List<String> sub : subResult) {
+
+                    // so much copy and new here.
                     List<String> newSub = new ArrayList<>(sub.size() + 1);
                     newSub.add(s.substring(i, k + 1));
                     newSub.addAll(sub);
