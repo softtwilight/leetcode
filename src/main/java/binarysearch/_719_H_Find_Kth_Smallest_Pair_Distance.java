@@ -17,6 +17,46 @@ public class _719_H_Find_Kth_Smallest_Pair_Distance {
         System.out.println(instance.smallestDistancePair(nums, 3));
     }
 
+
+
+
+    public int smallestDistancePair2(int[] nums, int k) {
+        //strategy: Binary Search + 2 Pointer + Prefix Sum
+        Arrays.sort(nums);
+        //low never works but high always works
+        int low = -1, high = nums[nums.length - 1] - nums[0];
+        while (true) {
+            //reached boundary where low doesn't hold kth element but high just covers it
+            if (low + 1 == high) {
+                break;
+            }
+            int mid = (low + high) / 2;
+            //if it works give to high but if it doesn't work give it to low
+            if (possible(nums, mid, k)) {
+                high = mid;
+            } else {
+                low = mid;
+            }
+        }
+        return high;
+    }
+    public boolean possible(int[] nums, int guess, int k) {
+        //Two Pointer + Prefix Sum
+        int count = 0, left = 0;
+        //loop through all numbers
+        for (int right = 0; right < nums.length; right++) {
+            //continue to move left pointer until the difference is within our guess
+            while (nums[right] - nums[left] > guess) {
+                left++;
+            }
+            //this includes all differences at or below our guess so far
+            count += right - left;
+        }
+        //see if we have more differences than k
+        //this count is a sum of all differences at or below our guess
+        return count >= k;
+    }
+
     /**
      * Memory Limit Exceeded
      *
