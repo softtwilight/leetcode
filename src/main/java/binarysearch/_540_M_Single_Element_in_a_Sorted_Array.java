@@ -33,9 +33,6 @@ public class _540_M_Single_Element_in_a_Sorted_Array {
                 hi = mid;
             }
         }
-        if (lo * 2 < nums.length) {
-            return nums[lo * 2];
-        }
-        return nums[nums.length - 1];
+        return nums[lo * 2];
     }
 }
