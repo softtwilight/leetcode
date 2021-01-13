@@ -17,6 +17,37 @@ public class _134_M_Gas_Station {
         System.out.println(instance.canCompleteCircuit(gas, cost));
     }
 
+
+    /**
+     * 1. If car starts at A and can not reach B. Any station between A and B
+     * can not reach B.(B is the first station that A can not reach.)
+     *
+     * 2. If A can reach B, abilityToReachB(A) >= abilityToReachB(K), A < K < B
+     *
+     * If the total number of gas is bigger than the total number of cost. There must be a solution.
+     */
+    public int canCompleteCircuit2(int[] gas, int[] cost) {
+        int sumGas = 0;
+        int sumCost = 0;
+        int start = 0;
+        int tank = 0;
+        for (int i = 0; i < gas.length; i++) {
+            sumGas += gas[i];
+            sumCost += cost[i];
+            tank += gas[i] - cost[i];
+            if (tank < 0) {
+                start = i + 1;
+                tank = 0;
+            }
+        }
+        if (sumGas < sumCost) {
+            return -1;
+        } else {
+            return start;
+        }
+    }
+
+
     /**
      *  先是暴力求解了， 然后试着改变了遍历的开始坐标， 从最小值之后开始遍历。 居然跑出来很快
      */
