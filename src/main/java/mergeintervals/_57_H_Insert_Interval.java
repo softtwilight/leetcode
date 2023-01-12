@@ -21,7 +21,8 @@ public class _57_H_Insert_Interval {
     /**
      * 	1 ms  +	41.7 MB
      * 	这道题做过了，关键是换newInterval，就可以将比较需要考虑的情况降下来。
-     * 	掌握这个技巧就不难了。
+     * 	掌握这个技巧就不难了.
+     * The key is regard merge two intervals as a sub-problem, and left a (merged or not) interval to merge with remaining interval.
      *
      */
     public int[][] insert(int[][] intervals, int[] newInterval) {
