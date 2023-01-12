@@ -32,7 +32,7 @@ function select(list, left, right, k) is
         else
             left := pivotIndex + 1
 ```
-
+```
 function partition(list, left, right, pivotIndex) is
     pivotValue := list[pivotIndex]
     swap list[pivotIndex] and list[right]  // Move pivot to end
@@ -44,3 +44,4 @@ function partition(list, left, right, pivotIndex) is
     swap list[right] and list[storeIndex]  // Move pivot to its final place
     return storeIndex
     
+```
